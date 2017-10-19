@@ -10,7 +10,9 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -20,6 +22,7 @@ public class MainActivity extends ActionBarActivity {
     private Button btnInsertar;
     private Button btnEliminar;
     private Button btnMover;
+    private TextView LblEtiqueta;
 
     private ArrayList<Titular> datos;
 
@@ -27,6 +30,8 @@ public class MainActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        LblEtiqueta = (TextView)findViewById(R.id.LblEtiqueta);
 
         datos = new ArrayList<Titular>();
         datos.add(new Titular("Alex ", "Buenavida ", "2DAM ",R.mipmap.berni));
@@ -46,6 +51,11 @@ public class MainActivity extends ActionBarActivity {
             @Override
             public void onClick(View v) {
                 Log.i("DemoRecView", "Pulsado el elemento " + recView.getChildPosition(v));
+
+                String opcionSeleccionada =
+                        datos.get(recView.getChildPosition(v)).getTitulo();
+
+                LblEtiqueta.setText("Opción seleccionada: " + opcionSeleccionada);
             }
         });
 
