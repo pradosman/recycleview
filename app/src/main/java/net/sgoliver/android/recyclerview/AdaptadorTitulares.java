@@ -1,5 +1,6 @@
 package net.sgoliver.android.recyclerview;
 
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,10 +23,12 @@ public class AdaptadorTitulares
         private TextView txtTitulo;
         private TextView txtSubtitulo;
         private ImageView icono;
+        private CardView cv;
 
         public TitularesViewHolder(View itemView) {
             super(itemView);
 
+            cv = (CardView)itemView.findViewById(R.id.cv);
             txtTitulo = (TextView)itemView.findViewById(R.id.LblTitulo);
             txtSubtitulo = (TextView)itemView.findViewById(R.id.LblSubTitulo);
             icono = (ImageView)itemView.findViewById(R.id.icon);

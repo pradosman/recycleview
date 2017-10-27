@@ -1,7 +1,9 @@
 package net.sgoliver.android.recyclerview;
 
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -14,9 +16,12 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.TextView;
 
+
 import java.util.ArrayList;
 
-public class MainActivity extends ActionBarActivity {
+import butterknife.OnClick;
+
+public class MainActivity extends AppCompatActivity {
 
     private RecyclerView recView;
     private Button btnInsertar;
@@ -25,32 +30,32 @@ public class MainActivity extends ActionBarActivity {
     private TextView LblEtiqueta;
 
     private ArrayList<Titular> datos;
+    private FloatingActionButton actionButton1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        LblEtiqueta = (TextView)findViewById(R.id.LblEtiqueta);
-
         datos = new ArrayList<Titular>();
-        datos.add(new Titular("Alex ", "Buenavida ", "2DAM ",R.mipmap.berni));
-        datos.add(new Titular("Jaime ", "Fajardo ", "2DAM ",R.mipmap.jauma));
-        datos.add(new Titular("ALberto ", "Plained ", "2DAM ",R.mipmap.alberto));
-        datos.add(new Titular("David ", "Pradosman ", "2DAM ",R.mipmap.yo));
+        datos.add(new Titular("Alex ", "Buenavida ", "2DAM ", R.mipmap.berni));
+        datos.add(new Titular("Jaime ", "Fajardo ", "2DAM ", R.mipmap.jauma));
+        datos.add(new Titular("Alberto ", "Plained ", "2DAM ", R.mipmap.alberto));
+        datos.add(new Titular("David ", "Pradosman ", "2DAM ", R.mipmap.yo));
 
-        for(int i=0; i<20; i++)
-            datos.add(new Titular("Nombre ", "Apellidos ", "Curso ",R.mipmap.ic_launcher));
+        for (int i = 0; i < 20; i++)
+            datos.add(new Titular("Nombre ", "Apellidos ", "Curso ", R.mipmap.ic_launcher));
 
         recView = (RecyclerView) findViewById(R.id.RecView);
         recView.setHasFixedSize(true);
 
         final AdaptadorTitulares adaptador = new AdaptadorTitulares(datos);
 
+
+        /*
         adaptador.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.i("DemoRecView", "Pulsado el elemento " + recView.getChildPosition(v));
 
                 String opcionSeleccionada =
                         datos.get(recView.getChildPosition(v)).getTitulo();
@@ -58,52 +63,14 @@ public class MainActivity extends ActionBarActivity {
                 LblEtiqueta.setText("Opción seleccionada: " + opcionSeleccionada);
             }
         });
-
+    */
         recView.setAdapter(adaptador);
 
-        recView.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
+        recView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         //recView.setLayoutManager(new GridLayoutManager(this,3));
 
-        recView.addItemDecoration(
-                new DividerItemDecoration(this,DividerItemDecoration.VERTICAL_LIST));
-
         recView.setItemAnimator(new DefaultItemAnimator());
-
-        btnInsertar = (Button)findViewById(R.id.BtnInsertar);
-
-        btnInsertar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                datos.add(1, new Titular("Nuevo titular", "Subtitulo nuevo titular", "Curso nuevo titular",R.mipmap.ic_launcher));
-                adaptador.notifyItemInserted(1);
-            }
-        });
-
-        btnEliminar = (Button)findViewById(R.id.BtnEliminar);
-
-        btnEliminar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                datos.remove(1);
-                adaptador.notifyItemRemoved(1);
-            }
-        });
-
-        btnMover = (Button)findViewById(R.id.BtnMover);
-
-        btnMover.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                Titular aux = datos.get(1);
-                datos.set(1,datos.get(2));
-                datos.set(2,aux);
-
-                adaptador.notifyItemMoved(1, 2);
-            }
-        });
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
